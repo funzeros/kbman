@@ -1,6 +1,6 @@
 <template>
   <div class="login-wrap">
-    <div class="title">键盘侠大作战</div>
+    <div class="title">{{ websiteName }}</div>
     <el-form
       ref="FormRef"
       :model="modelRef"
@@ -33,24 +33,30 @@
       </el-form-item>
       <el-form-item>
         <template v-if="!isReg">
-          <el-button @click="handleSubmit()" :loading="gSubmitLoading"
+          <el-button
+            type="text"
+            @click="handleSubmit()"
+            :loading="gSubmitLoading"
             >登录</el-button
           >
-          <el-button @click="replaceRouteQuery({ type: 'reg' })"
+          <el-button type="text" @click="replaceRouteQuery({ type: 'reg' })"
             >注册</el-button
           >
         </template>
         <template v-else>
-          <el-button @click="handleSubmit(false)" :loading="gSubmitLoading"
+          <el-button
+            type="text"
+            @click="handleSubmit(false)"
+            :loading="gSubmitLoading"
             >注册</el-button
           >
-          <el-button @click="replaceRouteQuery({ type: 'login' })"
+          <el-button type="text" @click="replaceRouteQuery({ type: 'login' })"
             >返回登录</el-button
           >
         </template>
       </el-form-item>
     </el-form>
-    <div class="title small">KeyboardMan&nbsp;&nbsp;MajorCombat</div>
+    <div class="title small">{{ websiteNameEn }}</div>
     <div class="overlay"></div>
   </div>
 </template>
@@ -67,6 +73,7 @@ import { ActionTypes } from "/@/store/modules/user/action-types";
 import { mainRoutePath } from "/@/const/path";
 import { ElFormRefs } from "/@/types/ElementPlus";
 import { useGSubmit } from "/@/hooks/useForm";
+import { websiteName, websiteNameEn } from "/@/const/website";
 export default defineComponent({
   setup() {
     const { pushRouteFullpath, currentQuery, replaceRouteQuery } = useGRoute();
@@ -92,7 +99,10 @@ export default defineComponent({
         if (data) {
           store.commit(MutationTypes.SET_USERINFO, data);
           await store.dispatch(ActionTypes.TOKEN_AUTH);
-          pushRouteFullpath(mainRoutePath);
+          const path =
+            decodeURIComponent(currentQuery.value.redirect as string) ||
+            mainRoutePath;
+          pushRouteFullpath(path);
         } else gMessage(msg, "warning");
       },
       async registry() {
@@ -135,6 +145,8 @@ export default defineComponent({
       FormRef,
       nameRef,
       gSubmitLoading,
+      websiteName,
+      websiteNameEn,
       ...toRefs(modelData),
       ...methods,
       ...constData
@@ -157,10 +169,29 @@ export default defineComponent({
   width: 400px;
   box-sizing: border-box;
   padding: 20px;
-  box-shadow: 0 0 10px 1px $--color-text-primary;
-  background-color: $--background-color-base;
+  box-shadow: 0 0 2px 1px $--color-text-primary,
+    0 0 10px 0px $--color-text-primary inset;
   position: relative;
   z-index: 2;
+  :deep(label) {
+    color: $--color-text-primary;
+  }
+  :deep(input) {
+    background: transparent;
+    color: $--color-text-primary;
+    -webkit-text-fill-color: $--color-text-primary;
+    border-color: $--color-text-primary;
+    &:-webkit-autofill {
+      transition: background-color 5000s ease-in-out 0s;
+    }
+  }
+  :deep(button) {
+    padding: 10px 20px;
+    font-size: 18px;
+  }
+  :deep(.el-form-item__error) {
+    color: $--color-text-regular;
+  }
 }
 .title {
   font-size: 60px;

@@ -1,5 +1,5 @@
 import { RouteRecordRaw } from "vue-router";
-import { hadAuthMeta, noAuthMeta } from "./config";
+import { hadAuthMeta, hadAuthRoleMeta, noAuthMeta } from "./config";
 import Caption from "/@/views/Layout/Caption.vue";
 import Game from "../views/Layout/Game.vue";
 export const EXCEPTION_COMPONENT = () => import("/@/page/Exception/404.vue");
@@ -47,8 +47,14 @@ export const viewsRouter: RouteRecordRaw[] = [
       {
         path: "main",
         name: "主界面",
-        meta: hadAuthMeta,
+        meta: hadAuthRoleMeta,
         component: () => import("/@/views/Game/Main/index.vue")
+      },
+      {
+        path: "role",
+        name: "角色",
+        meta: hadAuthMeta,
+        component: () => import("/@/views/Game/Role/index.vue")
       }
     ]
   }

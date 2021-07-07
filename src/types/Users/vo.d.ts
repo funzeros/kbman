@@ -7,3 +7,8 @@ interface UserInfoVO {
   exp: number;
   medal: number;
 }
+
+interface RoleInfoVO {
+  id: number;
+  name: string;
+}

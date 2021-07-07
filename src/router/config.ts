@@ -5,13 +5,19 @@ export const requestBaseURL = "/api";
 
 export const noAuthMeta = {
   keepAlive: false,
-  isAuth: false
+  isAuth: false,
+  isRole: false
 };
 export const hadAuthMeta = {
   keepAlive: false,
-  isAuth: true
+  isAuth: true,
+  isRole: false
 };
-
+export const hadAuthRoleMeta = {
+  keepAlive: false,
+  isAuth: true,
+  isRole: true
+};
 export const hadAuthMetaFunc = (
   obj: Dictionary<string | number | boolean>
 ) => ({

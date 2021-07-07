@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import fs from "fs";
 import path from "path";
 import dotenv from "dotenv";
@@ -18,7 +19,6 @@ export function isReportMode(): boolean {
 }
 
 // Read all environment variable configuration files to process.env
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
 export function wrapperEnv(envConf: any): any {
   const ret: any = {};
 
