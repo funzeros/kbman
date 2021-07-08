@@ -40,7 +40,21 @@ export default ({ mode }: ConfigEnv): UserConfig => {
     },
     build: {
       target: "esnext",
-      minify: "esbuild"
+      minify: "esbuild",
+      rollupOptions: {
+        output: {
+          //解决打包时Some chunks are larger警告
+          manualChunks(id) {
+            if (id.includes("node_modules")) {
+              return id
+                .toString()
+                .split("node_modules/")[1]
+                .split("/")[0]
+                .toString();
+            }
+          }
+        }
+      }
     },
     css: {
       preprocessorOptions: {
