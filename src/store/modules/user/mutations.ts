@@ -4,11 +4,14 @@ import storage from "store";
 import { MutationTree } from "vuex";
 import { UserInfoDTO } from "/@/types/Users/dto";
 import { objEncodeToStr, strDecodeToObj } from "/@/utils/encrypt";
+import Game from "/@/hooks/useGame";
 
 export type Mutations<S = UserState> = {
   [MutationTypes.SET_USERINFO](state: S, payload: UserInfoDTO): void;
   [MutationTypes.CLEAR_USERINFO](state: S): void;
   [MutationTypes.GET_USERINFO](state: S): void;
+  [MutationTypes.SET_GAME](state: S, payload: Game): void;
+  [MutationTypes.CLEAR_GAME](state: S): void;
 };
 
 export const mutations: MutationTree<UserState> & Mutations = {
@@ -26,5 +29,12 @@ export const mutations: MutationTree<UserState> & Mutations = {
       const obj = strDecodeToObj(str);
       state.userInfo = obj;
     }
+  },
+  [MutationTypes.SET_GAME](state, payload) {
+    state.game = payload;
+  },
+  [MutationTypes.CLEAR_GAME](state) {
+    state.game?.cancelledControl();
+    state.game = undefined;
   }
 };

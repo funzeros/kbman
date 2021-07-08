@@ -57,5 +57,20 @@ export const viewsRouter: RouteRecordRaw[] = [
         component: () => import("/@/views/Game/Role/index.vue")
       }
     ]
+  },
+  {
+    path: "/edit",
+    name: "编辑器",
+    redirect: "/edit/map",
+    meta: noAuthMeta,
+    component: Game,
+    children: [
+      {
+        path: "map",
+        name: "地图",
+        meta: noAuthMeta,
+        component: () => import("/@/page/Edit/Map/index.vue")
+      }
+    ]
   }
 ];
