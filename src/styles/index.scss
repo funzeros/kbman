@@ -1,1 +1,30 @@
 @import "./transition.scss";
+
+.g-basic-scroll::-webkit-scrollbar,
+.g-basic-scroll-child-div > div::-webkit-scrollbar {
+  border-radius: 4px;
+  width: 6px;
+  height: 10px;
+}
+.g-basic-scroll::-webkit-scrollbar-track,
+.g-basic-scroll-child-div > div::-webkit-scrollbar-track {
+  border-radius: 4px;
+}
+.g-basic-scroll::-webkit-scrollbar-thumb,
+.g-basic-scroll-child-div > div::-webkit-scrollbar-thumb {
+  border-radius: 4px;
+  background-color: rgba($color: #eee, $alpha: 0.2);
+  display: none;
+  &:hover {
+    background-color: rgba($color: #eee, $alpha: 0.5);
+  }
+}
+.g-basic-scroll:hover::-webkit-scrollbar-thumb,
+.g-basic-scroll-child-div > div:hover::-webkit-scrollbar-thumb {
+  display: block;
+}
+
+// 离屏渲染优化
+.cva {
+  content-visibility: auto;
+}

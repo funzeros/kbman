@@ -7,3 +7,7 @@ declare module "*.vue" {
 declare module "vue-advanced-cropper";
 declare module "nzh";
 declare module "nzh/cn";
+declare module "*.json" {
+  const value: any;
+  export default value;
+}

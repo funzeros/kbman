@@ -1,12 +1,10 @@
-import { Graphics, Text, Ticker } from "pixi.js";
-import { mapBlockList } from "../const/map";
+import { Ticker } from "pixi.js";
 import Engin from "./useEngin";
-export default class Game extends Engin {
+export default class Edit extends Engin {
   private readonly effectiveKey = ["w", "a", "s", "d"];
   private keyPool = new Map<string, boolean>();
   private ticker: Ticker;
-  public speed = 1;
-  public mPlayer: { role: Graphics; text: Text };
+  public speed = 10;
   public players = new Map<number, GObj>();
   /**
    * constructor
@@ -16,11 +14,8 @@ export default class Game extends Engin {
     super(el);
     // 添加舞台和容器
     this.stageAdd(this.mapContainer);
-    this.stageAdd(this.roleContainer);
     el.appendChild(this.app.view);
     // 初始化添加
-    this.renderMap(mapBlockList);
-    this.mPlayer = this.role();
     this.ticker = new Ticker();
     this.ticker.autoStart = true;
     this.ticker.minFPS = 30;
@@ -33,12 +28,8 @@ export default class Game extends Engin {
    * @param dt
    */
   private update = (dt: number) => {
-    const oldXY = { x: this.roleP.x, y: this.roleP.y };
     this.move(dt);
-    this.refreshRole();
     this.refreshCamera();
-    if (Game.arrayBoxesIntersect(this.mapContainer.children, this.mPlayer.role))
-      this.roleP = oldXY;
   };
   /**
    * 角色移动
@@ -70,29 +61,5 @@ export default class Game extends Engin {
   public cancelledControl() {
     document.body.removeEventListener("keydown", this.controlKD);
     document.body.removeEventListener("keyup", this.controlKU);
-  }
-
-  /**
-   * 创建角色
-   */
-  public role() {
-    const role = new Graphics();
-    role.beginFill(0x22fe22);
-    role.drawCircle(0, 0, 4);
-    role.endFill();
-    role.x = this.calcXY(this.roleP.x);
-    role.y = this.calcXY(this.roleP.y);
-    const text = new Text("Gems", { fontSize: "12px", fill: "#fff" });
-    text.x = this.calcXY(this.roleP.x) + 5;
-    text.y = this.calcXY(this.roleP.y) - 10;
-    this.roleAdd(role);
-    this.roleAdd(text);
-    return { role, text };
-  }
-  public refreshRole() {
-    this.mPlayer.role.x = this.calcXY(this.roleP.x);
-    this.mPlayer.role.y = this.calcXY(this.roleP.y);
-    this.mPlayer.text.x = this.calcXY(this.roleP.x) + 5;
-    this.mPlayer.text.y = this.calcXY(this.roleP.y) - 10;
   }
 }

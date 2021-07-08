@@ -1,5 +1,11 @@
+const mapBlockType = {
+  circle: "circle",
+  rect: "rect",
+  roundedRect: "roundedRect"
+};
+type BlockType = keyof typeof mapBlockType;
 interface MapBlockVO {
-  type: "circle" | "rect" | "roundedRect";
+  type: BlockType;
   x: number;
   y: number;
   width: number;
