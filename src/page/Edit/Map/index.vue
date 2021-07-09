@@ -27,7 +27,7 @@ export default defineComponent({
     const mapList = ref(cloneDeep(mapBlockList).reverse());
     const methods = {
       addBlock(row: MapBlockDTO) {
-        mapList.value.push(row);
+        mapList.value.unshift(row);
         mapRef.value.refreshBlock();
       },
       delBlock(i: number) {
@@ -47,10 +47,13 @@ export default defineComponent({
 .edit-main {
   width: 100%;
   height: 100%;
-  display: grid;
-  grid-template-rows: repeat(2, 1fr);
+  display: flex;
+  flex-direction: column;
   & > div {
     padding: 20px;
+    &:first-of-type {
+      flex: 1;
+    }
   }
 }
 </style>

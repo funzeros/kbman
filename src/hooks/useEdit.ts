@@ -1,5 +1,6 @@
 import { Ticker } from "pixi.js";
 import Engin from "./useEngin";
+
 export default class Edit extends Engin {
   private readonly effectiveKey = ["w", "a", "s", "d"];
   private keyPool = new Map<string, boolean>();

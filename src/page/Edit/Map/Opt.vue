@@ -17,7 +17,7 @@
         <div>color：{{ item.color }}</div>
       </div>
     </div>
-    <el-form>
+    <el-form :model="modelRef" label-width="60px">
       <el-row>
         <el-col :span="12">
           <el-form-item label="类型">
