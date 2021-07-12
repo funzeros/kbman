@@ -99,9 +99,9 @@ export default defineComponent({
         if (data) {
           store.commit(MutationTypes.SET_USERINFO, data);
           await store.dispatch(ActionTypes.TOKEN_AUTH);
-          const path =
-            decodeURIComponent(currentQuery.value.redirect as string) ||
-            mainRoutePath;
+          const path = currentQuery.value.redirect
+            ? decodeURIComponent(currentQuery.value.redirect as string)
+            : mainRoutePath;
           pushRouteFullpath(path);
         } else gMessage(msg, "warning");
       },

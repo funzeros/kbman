@@ -1,32 +1,40 @@
-import { Graphics, Text, Ticker } from "pixi.js";
+import { Graphics, Text } from "pixi.js";
 import { mapBlockList } from "../const/map";
 import Engin from "./useEngin";
+
+type Player = {
+  role: Graphics;
+  text: Text;
+};
 export default class Game extends Engin {
   private readonly effectiveKey = ["w", "a", "s", "d"];
   private keyPool = new Map<string, boolean>();
-  private ticker: Ticker;
   public speed = 1;
   public mPlayer: { role: Graphics; text: Text };
   public players = new Map<number, GObj>();
+  public user: UserInfoVO;
   /**
    * constructor
    * @param el
+   * @param user
    */
-  constructor(el: HTMLElement) {
+  constructor(el: HTMLElement, user: UserInfoVO) {
     super(el);
+    this.user = user;
+    this.roleP.x = user.x;
+    this.roleP.y = user.y;
     // 添加舞台和容器
     this.stageAdd(this.mapContainer);
     this.stageAdd(this.roleContainer);
     el.appendChild(this.app.view);
     // 初始化添加
     this.renderMap(mapBlockList);
-    this.mPlayer = this.role();
-    this.ticker = new Ticker();
-    this.ticker.autoStart = true;
-    this.ticker.minFPS = 30;
-    this.ticker.maxFPS = 144;
-    this.ticker.add(this.update);
-    this.ticker.start();
+    this.mPlayer = this.role(this.user.name, this.roleP);
+    this.app.ticker.autoStart = true;
+    this.app.ticker.minFPS = 30;
+    this.app.ticker.maxFPS = 60;
+    this.app.ticker.add(this.update);
+    this.app.ticker.start();
   }
   /**
    * 更新操作
@@ -75,16 +83,16 @@ export default class Game extends Engin {
   /**
    * 创建角色
    */
-  public role() {
+  public role(name: string, xy: XY) {
     const role = new Graphics();
     role.beginFill(0x22fe22);
     role.drawCircle(0, 0, 4);
     role.endFill();
-    role.x = this.calcXY(this.roleP.x);
-    role.y = this.calcXY(this.roleP.y);
-    const text = new Text("Gems", { fontSize: "12px", fill: "#fff" });
-    text.x = this.calcXY(this.roleP.x) + 5;
-    text.y = this.calcXY(this.roleP.y) - 10;
+    role.x = this.calcXY(xy.x);
+    role.y = this.calcXY(xy.y);
+    const text = new Text(name, { fontSize: "12px", fill: "#fff" });
+    text.x = this.calcXY(xy.x) + 5;
+    text.y = this.calcXY(xy.y) - 10;
     this.roleAdd(role);
     this.roleAdd(text);
     return { role, text };
@@ -94,5 +102,31 @@ export default class Game extends Engin {
     this.mPlayer.role.y = this.calcXY(this.roleP.y);
     this.mPlayer.text.x = this.calcXY(this.roleP.x) + 5;
     this.mPlayer.text.y = this.calcXY(this.roleP.y) - 10;
+  }
+  public refreshOtherRole(player: Player, xy: XY) {
+    player.role.x = this.calcXY(xy.x);
+    player.role.y = this.calcXY(xy.y);
+    player.text.x = this.calcXY(xy.x) + 5;
+    player.text.y = this.calcXY(xy.y) - 10;
+  }
+  public addTickEvent(cb: Fn) {
+    this.app.ticker.add(() => cb(this));
+  }
+  public stopTicker() {
+    this.app.ticker.stop();
+  }
+  public clearTicker() {
+    this.app.ticker.destroy();
+  }
+  public updatePlayers(players: UserInfoVO[]) {
+    const others = players.filter(m => m.id !== this.user.id);
+    others.forEach(m => {
+      if (!this.players.has(m.id)) {
+        const oPlayer = this.role(m.name, { x: m.x, y: m.y });
+        this.players.set(m.id, oPlayer);
+      }
+      const player = this.players.get(m.id) as Player;
+      this.refreshOtherRole(player, { x: m.x, y: m.y });
+    });
   }
 }

@@ -5,6 +5,8 @@ import { MutationTree } from "vuex";
 import { UserInfoDTO } from "/@/types/Users/dto";
 import { objEncodeToStr, strDecodeToObj } from "/@/utils/encrypt";
 import Game from "/@/hooks/useGame";
+import { KBWS } from "/@/hooks/useWs";
+import { mergeProperties } from "/@/utils/common";
 
 export type Mutations<S = UserState> = {
   [MutationTypes.SET_USERINFO](state: S, payload: UserInfoDTO): void;
@@ -12,12 +14,14 @@ export type Mutations<S = UserState> = {
   [MutationTypes.GET_USERINFO](state: S): void;
   [MutationTypes.SET_GAME](state: S, payload: Game): void;
   [MutationTypes.CLEAR_GAME](state: S): void;
+  [MutationTypes.SET_WS](state: S, payload: KBWS): void;
+  [MutationTypes.CLEAR_WS](state: S): void;
 };
 
 export const mutations: MutationTree<UserState> & Mutations = {
   [MutationTypes.SET_USERINFO](state, payload) {
-    state.userInfo = payload;
-    storage.set(MutationTypes.SET_USERINFO, objEncodeToStr(payload));
+    state.userInfo = mergeProperties(new UserInfoDTO(), payload);
+    storage.set(MutationTypes.SET_USERINFO, objEncodeToStr(state.userInfo));
   },
   [MutationTypes.CLEAR_USERINFO](state) {
     state.userInfo = undefined;
@@ -36,5 +40,13 @@ export const mutations: MutationTree<UserState> & Mutations = {
   [MutationTypes.CLEAR_GAME](state) {
     state.game?.cancelledControl();
     state.game = undefined;
+  },
+  [MutationTypes.SET_WS](state, payload) {
+    state.KBWSIns = payload;
+  },
+  [MutationTypes.CLEAR_WS](state) {
+    if (!state.KBWSIns) return;
+    state.KBWSIns.close();
+    state.KBWSIns = undefined;
   }
 };

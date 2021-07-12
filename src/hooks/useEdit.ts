@@ -20,7 +20,7 @@ export default class Edit extends Engin {
     this.ticker = new Ticker();
     this.ticker.autoStart = true;
     this.ticker.minFPS = 30;
-    this.ticker.maxFPS = 144;
+    this.ticker.maxFPS = 60;
     this.ticker.add(this.update);
     this.ticker.start();
   }

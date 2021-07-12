@@ -13,3 +13,8 @@ interface MapBlockVO {
   radius?: number;
   color?: number;
 }
+
+type XY = {
+  x: number;
+  y: number;
+};
