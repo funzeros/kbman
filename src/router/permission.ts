@@ -1,6 +1,6 @@
 import type { Router } from "vue-router";
 import { nProgress } from "/@/core/nProgress";
-import { loginRoutePath, roleRoutePath } from "/@/const/path";
+import { loginRoutePath } from "/@/const/path";
 import store from "/@/store";
 import { ActionTypes } from "../store/modules/user/action-types";
 export function createPermissionGuard(router: Router) {
@@ -9,17 +9,9 @@ export function createPermissionGuard(router: Router) {
     const meta = to.meta || {};
     const accessToken = store.state.user.userInfo?.token;
     if (!meta.isAuth) return next();
-    if (accessToken) {
-      if (!meta.isRole) return next();
-      else if (store.state.user.roleInfo) return next();
-      else return next(roleRoutePath);
-    }
+    if (accessToken) return next();
     const data = await store.dispatch(ActionTypes.TOKEN_AUTH);
-    if (data) {
-      if (!meta.isRole) return next();
-      else if (store.state.user.roleInfo) return next();
-      else return next(roleRoutePath);
-    }
+    if (data) return next();
     const redirect = encodeURIComponent(to.fullPath);
     next({
       path: loginRoutePath,
