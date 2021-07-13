@@ -16,9 +16,9 @@ export default defineComponent({
       store.commit(MutationTypes.SET_GAME, game);
       game.registeredControl();
       WSIns.on("syncUsers", sysncUsersFn);
-      game.addTickEvent(({ roleP: { x, y } }) => {
-        WSIns.send({ type: "syncUsers", data: { x, y } });
-      });
+      // game.addTickEvent(({ roleP: { x, y } }) => {
+      //   WSIns.send({ type: "syncUsers", data: { x, y } });
+      // });
     });
     onUnmounted(() => {
       store.getters.game?.stopTicker();

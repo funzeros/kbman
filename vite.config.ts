@@ -43,7 +43,6 @@ export default ({ mode }: ConfigEnv): UserConfig => {
       minify: "esbuild",
       rollupOptions: {
         output: {
-          //解决打包时Some chunks are larger警告
           manualChunks(id) {
             if (id.includes("node_modules")) {
               return id

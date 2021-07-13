@@ -11,7 +11,6 @@ export default class Engin {
   public roleP = { x: 0, y: 0 };
   public mapContainer: Container;
   public roleContainer: Container;
-
   constructor(el: HTMLElement) {
     this.width = el.clientWidth;
     this.height = el.clientHeight;
@@ -159,6 +158,9 @@ export default class Engin {
    */
   public roleAdd(child: DisplayObject) {
     this.roleContainer.addChild(child);
+  }
+  public roleDel(child: DisplayObject) {
+    this.roleContainer.removeChild(child);
   }
   /**
    * 追加元素到地图中

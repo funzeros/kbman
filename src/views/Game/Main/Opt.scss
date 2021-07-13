@@ -1,0 +1,6 @@
+.opt-grid {
+  height: 100%;
+  display: grid;
+  grid-template-columns: 300px 1fr 400px;
+  gap: 20px;
+}

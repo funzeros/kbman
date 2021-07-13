@@ -8,7 +8,7 @@ import { gMessage } from "./useMessage";
 const wsFunc: Partial<KBWSTypes> = {
   connect: [
     (ws, res) => {
-      console.log("ws连接成功", res);
+      console.log(res.data.msg);
     }
   ],
   syncUsers: []

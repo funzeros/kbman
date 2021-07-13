@@ -1,16 +1,15 @@
 <template>
   <div class="game-main">
-    <div>
-      <Map />
-    </div>
-    <div></div>
+    <div><Map /></div>
+    <div><Opt /></div>
   </div>
 </template>
 <script lang="ts">
 import { defineComponent } from "vue";
 import Map from "./Map.vue";
+import Opt from "./Opt.vue";
 export default defineComponent({
-  components: { Map },
+  components: { Map, Opt },
   setup() {
     return {};
   }

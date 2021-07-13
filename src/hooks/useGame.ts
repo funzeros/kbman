@@ -10,9 +10,10 @@ export default class Game extends Engin {
   private readonly effectiveKey = ["w", "a", "s", "d"];
   private keyPool = new Map<string, boolean>();
   public speed = 1;
-  public mPlayer: { role: Graphics; text: Text };
-  public players = new Map<number, GObj>();
+  public mPlayer: Player;
+  public players = new Map<number, Player>();
   public user: UserInfoVO;
+  private colorList = [0x22fe22, 0xffffff, 0x2222fe, 0xfefe22];
   /**
    * constructor
    * @param el
@@ -83,14 +84,17 @@ export default class Game extends Engin {
   /**
    * 创建角色
    */
-  public role(name: string, xy: XY) {
+  public role(name: string, xy: XY, type = 0) {
     const role = new Graphics();
-    role.beginFill(0x22fe22);
+    role.beginFill(this.colorList[type]);
     role.drawCircle(0, 0, 4);
     role.endFill();
     role.x = this.calcXY(xy.x);
     role.y = this.calcXY(xy.y);
-    const text = new Text(name, { fontSize: "12px", fill: "#fff" });
+    const text = new Text(name, {
+      fontSize: "12px",
+      fill: this.colorList[type]
+    });
     text.x = this.calcXY(xy.x) + 5;
     text.y = this.calcXY(xy.y) - 10;
     this.roleAdd(role);
@@ -118,15 +122,30 @@ export default class Game extends Engin {
   public clearTicker() {
     this.app.ticker.destroy();
   }
+  public startTicker() {
+    this.app.ticker.start();
+  }
   public updatePlayers(players: UserInfoVO[]) {
-    const others = players.filter(m => m.id !== this.user.id);
-    others.forEach(m => {
+    const ids: number[] = [];
+    players.forEach(m => {
+      // 如果是自己，跳过
+      ids.push(m.id);
+      if (m.id === this.user.id) return;
+      // 新玩家 插入
       if (!this.players.has(m.id)) {
-        const oPlayer = this.role(m.name, { x: m.x, y: m.y });
+        const oPlayer = this.role(m.name, { x: m.x, y: m.y }, 1);
         this.players.set(m.id, oPlayer);
       }
+      // 更新玩家位置
       const player = this.players.get(m.id) as Player;
       this.refreshOtherRole(player, { x: m.x, y: m.y });
+    });
+    this.players.forEach((v, k) => {
+      if (ids.includes(k)) return;
+      const { role, text } = this.players.get(k) as Player;
+      this.roleDel(role);
+      this.roleDel(text);
+      this.players.delete(k);
     });
   }
 }

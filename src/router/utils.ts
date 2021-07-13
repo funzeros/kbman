@@ -73,12 +73,8 @@ export const processResponseData = (
     // 除了验证400以外的全部报错
     if (msg) {
       showNotification(msg);
-      // if (process.env.NODE_ENV === "development") {
-      //   return resData;
-      // } else {
       clearInfoToLogin();
       throw Error(msg);
-      // }
     } else {
       // 显示验证错误信息
       showNotification(resData.msg);
