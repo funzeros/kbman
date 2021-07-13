@@ -4,6 +4,7 @@ import { ActionTypes } from "/@/store/modules/user/action-types";
 import { UserInfoDTO } from "/@/types/Users/dto";
 import { KBWSDTO } from "/@/types/WS/dto";
 import { gMessage } from "./useMessage";
+import { MutationTypes } from "../store/modules/user/mutation-types";
 
 const wsFunc: Partial<KBWSTypes> = {
   connect: [
@@ -11,7 +12,18 @@ const wsFunc: Partial<KBWSTypes> = {
       console.log(res.data.msg);
     }
   ],
-  syncUsers: []
+  syncUsers: [],
+  error: [
+    (ws, res) => {
+      console.error(new Error(res.data.msg));
+    }
+  ],
+  chat: [
+    (ws, res) => {
+      const store = useStore();
+      store.commit(MutationTypes.PUSH_MSG, res.data);
+    }
+  ]
 };
 export class KBWS {
   user: UserInfoDTO;

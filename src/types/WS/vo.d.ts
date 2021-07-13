@@ -18,3 +18,10 @@ interface KBWSVO<T = GObj> {
   sourceId: number; // 请求来源id
   targetId: number; // 请求目标id
 }
+
+interface ChatVO {
+  content: string;
+  id: number;
+  name: string;
+  time: string;
+}

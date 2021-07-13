@@ -12,6 +12,8 @@ import { useCore } from "/@/core/index";
 import initializer from "./core/bootstrap";
 
 import "/@/styles/index.scss";
+import "/@/styles/faceicon/iconfont.js";
+import "/@/styles/faceicon/iconfont.css";
 import { setupRouterGuard } from "./router/guard";
 
 (async () => {

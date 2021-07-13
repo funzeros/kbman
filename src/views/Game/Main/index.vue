@@ -17,11 +17,9 @@ export default defineComponent({
 </script>
 <style lang="scss" scoped>
 .game-main {
-  height: 100%;
-  display: grid;
-  grid-template-rows: repeat(2, 1fr);
   & > div {
     padding: 20px;
+    height: 50vh;
   }
 }
 </style>

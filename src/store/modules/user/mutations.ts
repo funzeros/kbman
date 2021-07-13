@@ -16,6 +16,8 @@ export type Mutations<S = UserState> = {
   [MutationTypes.CLEAR_GAME](state: S): void;
   [MutationTypes.SET_WS](state: S, payload: KBWS): void;
   [MutationTypes.CLEAR_WS](state: S): void;
+  [MutationTypes.PUSH_MSG](state: S, payload: ChatVO): void;
+  [MutationTypes.CLEAR_MSG](state: S): void;
 };
 
 export const mutations: MutationTree<UserState> & Mutations = {
@@ -48,5 +50,12 @@ export const mutations: MutationTree<UserState> & Mutations = {
     if (!state.KBWSIns) return;
     state.KBWSIns.close();
     state.KBWSIns = undefined;
+  },
+  [MutationTypes.PUSH_MSG](state, payload) {
+    if (state.msgList.length > 100) state.msgList.shift();
+    state.msgList.push(payload);
+  },
+  [MutationTypes.CLEAR_MSG](state) {
+    state.msgList.length = 0;
   }
 };

@@ -8,4 +8,5 @@ export interface UserState {
   roleInfo?: RoleInfoVO;
   game?: Game;
   KBWSIns?: KBWS; // KB WS 实例
+  msgList: ChatVO[];
 }

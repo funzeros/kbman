@@ -6,5 +6,7 @@ export enum MutationTypes {
   SET_GAME = "SET_GAME",
   CLEAR_GAME = "CLEAR_GAME",
   SET_WS = "SET_WS",
-  CLEAR_WS = "CLEAR_WS"
+  CLEAR_WS = "CLEAR_WS",
+  PUSH_MSG = "PUSH_MSG",
+  CLEAR_MSG = "CLEAR_MSG"
 }

@@ -59,3 +59,7 @@ interface DateCell {
   day: string;
   isSelected: boolean;
 }
+
+interface Window {
+  isInput: boolean;
+}

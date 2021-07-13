@@ -1,7 +1,7 @@
 <template>
   <div class="opt-grid">
-    <div class="keyboard"></div>
-    <div class="msg-list"></div>
+    <Keyboard />
+    <Msg />
     <div class="info"></div>
   </div>
 </template>

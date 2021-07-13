@@ -1,11 +1,11 @@
-import { App } from "vue";
+import { App, Component } from "vue";
 
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
-const components: any[] = [];
+import FaceIcon from "/@/components/FaceIcon/index.vue";
+const components: Component[] = [FaceIcon];
 
 const installIepComponents = (app: App<Element>) => {
   components.forEach(component => {
-    app.component(component.name, component);
+    app.component(component.name as string, component);
   });
 };
 

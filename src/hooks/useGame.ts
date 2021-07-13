@@ -44,6 +44,7 @@ export default class Game extends Engin {
   private update = (dt: number) => {
     const oldXY = { x: this.roleP.x, y: this.roleP.y };
     this.move(dt);
+    if (this.roleP.x === oldXY.x && this.roleP.y === oldXY.y) return;
     this.refreshRole();
     this.refreshCamera();
     if (Game.arrayBoxesIntersect(this.mapContainer.children, this.mPlayer.role))
@@ -65,6 +66,7 @@ export default class Game extends Engin {
    * @returns
    */
   private controlKD = (e: KeyboardEvent) => {
+    if (window.isInput) return;
     if (!this.effectiveKey.includes(e.key)) return;
     this.keyPool.set(e.key, true);
   };
