@@ -21,7 +21,7 @@
           <template #reference>
             <face-icon
               value="face-1011"
-              size="30"
+              size="30px"
               @click="visible = !visible"
             ></face-icon>
           </template>
@@ -34,7 +34,7 @@
             >
               <face-icon
                 :value="'face-' + item.font_class"
-                size="30"
+                size="30px"
                 @click="handleInsertFace(item.font_class)"
               ></face-icon>
             </div>
@@ -156,8 +156,6 @@ export default defineComponent({
       align-items: center;
       justify-content: center;
       & > svg {
-        height: 30px;
-        width: 30px;
         cursor: pointer;
       }
     }
@@ -197,8 +195,6 @@ export default defineComponent({
     width: 40px;
     height: 40px;
     & > svg {
-      width: 40px;
-      height: 40px;
       cursor: pointer;
     }
   }

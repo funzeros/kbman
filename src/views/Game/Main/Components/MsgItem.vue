@@ -23,7 +23,7 @@ export default defineComponent({
             .replace(/<(\w+)[^>]*>(.*?<\/\1>)?/g, "")
             // eslint-disable-next-line no-useless-escape
             .replace(/\[[\w\-]*\]/g, m => {
-              return `<svg class="icon" aria-hidden="true" style="font-size: 30px;width:30px;height:30px;">
+              return `<svg class="icon" aria-hidden="true" style="font-size: 30px">
                     <use xlink:href="#face-${m.slice(1, m.length - 1)}"></use>
                   </svg>`;
             })
@@ -38,7 +38,7 @@ export default defineComponent({
 </script>
 <style lang="scss" scoped>
 .msg-item {
-  color: $--color-text-sub;
+  color: $--color-text-primary;
   word-break: break-all;
   line-height: 24px;
   &:not(:first-of-type) {

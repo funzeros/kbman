@@ -66,20 +66,22 @@ export default defineComponent({
   display: grid;
   grid-template-columns: repeat(4, 50px);
   grid-template-rows: repeat(3, 50px);
-  grid-column-gap: 0px;
-  grid-row-gap: 0px;
   gap: 10px;
+  align-content: center;
   & > div {
     height: 100%;
     background-color: $--color-blue;
     text-align: center;
     line-height: 50px;
     user-select: none;
+    border-radius: $--border-radius-base;
+    box-shadow: 2px 2px 4px 0 #fff;
     &::after {
       content: attr(data-name);
     }
     &.active {
       background-color: $--color-orange;
+      box-shadow: 2px 2px 4px 0 #fff, 2px 2px 10px 4px $--color-orange;
     }
     &.disabled {
       background-color: $--color-text-regular;

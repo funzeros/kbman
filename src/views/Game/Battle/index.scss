@@ -1,0 +1,56 @@
+@keyframes be-dark {
+  from {
+    background-color: rgba($color: #000000, $alpha: 0);
+  }
+  to {
+    background-color: rgba($color: #000000, $alpha: 0.5);
+  }
+}
+@keyframes to-bottom {
+  to {
+    transform: translateY(0);
+  }
+}
+@keyframes to-top {
+  to {
+    transform: translateY(0);
+  }
+}
+
+.top,
+.bottom {
+  --height: 300px;
+}
+.top {
+  width: 100%;
+  height: calc(100vh - var(--height) - 50px);
+  background-color: #fff;
+  position: absolute;
+  top: 10px;
+  left: 0;
+  transform: translateY(calc(var(--height) + 50px - 100vh));
+}
+.bottom {
+  width: 100%;
+  height: var(--height);
+  position: absolute;
+  bottom: 10px;
+  left: 0;
+  transform: translateY(calc(var(--height)));
+}
+
+.mask-model {
+  --cb: cubic-bezier(0.17, 0.67, 0.83, 1.64);
+  --dur: 200ms;
+  pointer-events: none;
+  &.dialogShow {
+    pointer-events: visible;
+    animation: be-dark var(--dur) ease-in forwards;
+    .top {
+      animation: to-bottom var(--dur) var(--cb) forwards;
+    }
+    .bottom {
+      animation: to-top var(--dur) var(--cb) forwards;
+    }
+  }
+}

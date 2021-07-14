@@ -2,7 +2,7 @@
   <div class="opt-grid">
     <Keyboard />
     <Msg />
-    <div class="info"></div>
+    <Btns />
   </div>
 </template>
 <script lang="ts">
