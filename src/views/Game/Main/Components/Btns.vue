@@ -13,9 +13,11 @@
 </template>
 <script lang="ts">
 import { computed, defineComponent, inject } from "vue";
+import useEquip from "/@/hooks/useEquip";
 export default defineComponent({
   setup() {
     const startBattle = inject("startBattle") as Fn;
+    const { build } = useEquip();
     const btnList = computed(() => {
       return [
         {
@@ -24,6 +26,8 @@ export default defineComponent({
           icon: "icon-Character",
           func: () => {
             //
+            const weapon = build.weapon(1);
+            console.log(weapon);
           }
         },
         {
