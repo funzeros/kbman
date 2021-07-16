@@ -64,6 +64,12 @@ export const viewsRouter: RouteRecordRaw[] = [
         name: "地图",
         meta: noAuthMeta,
         component: () => import("/@/page/Edit/Map/index.vue")
+      },
+      {
+        path: "equip",
+        name: "装备",
+        meta: noAuthMeta,
+        component: () => import("/@/page/Edit/Equip/index.vue")
       }
     ]
   }
