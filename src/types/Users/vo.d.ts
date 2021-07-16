@@ -41,3 +41,4 @@ interface BasePropertyVO {
   den: number; // 暗强
   dre: number; // 暗抗
 }
+type BaseProps = keyof BasePropertyVO;

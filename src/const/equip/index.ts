@@ -5,8 +5,15 @@ import headPool from "./weapon/head";
 import scabbardPool from "./weapon/scabbard";
 import stalkPool from "./weapon/stalk";
 import tsubaPool from "./weapon/tsuba";
-import { BaseProps } from "/@/types/Game/dto";
 
+export const qualityMap: StrObj = {
+  100: "完美无缺",
+  90: "鬼斧神工",
+  80: "巧夺天工",
+  70: "朴实无华",
+  60: "平庸略堪",
+  50: "粗制滥造"
+};
 /**
  * EquipTypeOption
  */

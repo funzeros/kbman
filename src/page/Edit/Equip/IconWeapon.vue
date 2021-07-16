@@ -51,8 +51,8 @@ export default defineComponent({
 </script>
 <style lang="scss" scoped>
 .weapon-box {
-  height: 40px;
-  width: 40px;
+  height: 100px;
+  width: 100px;
   box-shadow: 0 0 0 2px #fff;
   background-color: #000;
   position: relative;
