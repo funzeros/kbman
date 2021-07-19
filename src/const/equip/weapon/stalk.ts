@@ -5,12 +5,16 @@ const stalkAttrPool: PartKindAttr[] = [
     "翠",
     "width: 10%;height: 20%;background-image: linear-gradient(to right, #868f96 0%, #596164 100%);border-radius: 0 0 50% 50% / 0 0 10% 10%;",
     {
-      str: {
-        value: 1
-      },
-      dex: {
-        value: 1
-      }
+      str: [
+        {
+          value: 1
+        }
+      ],
+      dex: [
+        {
+          value: 1
+        }
+      ]
     }
   ]
 ];

@@ -2,9 +2,9 @@ import { UserState } from "./types";
 
 const userState: UserState = {
   userInfo: undefined,
-  roleInfo: { id: 0, name: "" },
   game: undefined,
   KBWSIns: undefined,
+  dressedEquips: {},
   msgList: []
 };
 export default userState;

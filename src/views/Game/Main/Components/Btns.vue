@@ -14,10 +14,13 @@
 <script lang="ts">
 import { computed, defineComponent, inject } from "vue";
 import useEquip from "/@/hooks/useEquip";
+import { useStore } from "/@/store";
+import { MutationTypes } from "/@/store/modules/user/mutation-types";
 export default defineComponent({
   setup() {
     const startBattle = inject("startBattle") as Fn;
     const { build } = useEquip();
+    const store = useStore();
     const btnList = computed(() => {
       return [
         {
@@ -27,6 +30,7 @@ export default defineComponent({
           func: () => {
             //
             const weapon = build.weapon(1);
+            store.commit(MutationTypes.SET_EQUIP, weapon);
             console.log(weapon);
           }
         },

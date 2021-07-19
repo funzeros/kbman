@@ -10,11 +10,6 @@ interface UserInfoVO {
   y: number;
 }
 
-interface RoleInfoVO {
-  id: number;
-  name: string;
-}
-
 interface BasePropertyVO {
   level: number; // 等级
   str: number; // 力量

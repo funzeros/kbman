@@ -9,7 +9,7 @@ type PartProperty = {
   isFixed?: boolean; // 是否固定不可成长
 };
 type PartPropertyPool = {
-  [K in BaseProps]?: PartProperty;
+  [K in BaseProps]?: PartProperty[];
 };
 type AllPartProperty = {
   value: number; // 值
@@ -65,3 +65,7 @@ interface UseEquipVO {
     [K in EquipType]: (level: number) => EquipVO;
   };
 }
+
+type DressedEquips = {
+  [K in EquipType]?: EquipVO;
+};

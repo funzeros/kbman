@@ -17,9 +17,13 @@ export default defineComponent({
     const methods = {
       handleStartBattle() {
         BattleRef.value.open();
+      },
+      handleEndBattle() {
+        BattleRef.value.close();
       }
     };
     provide("startBattle", methods.handleStartBattle);
+    provide("endBattle", methods.handleEndBattle);
 
     return {
       BattleRef,

@@ -5,7 +5,7 @@ import { UserInfoDTO } from "/@/types/Users/dto";
 // types.ts
 export interface UserState {
   userInfo?: UserInfoDTO;
-  roleInfo?: RoleInfoVO;
+  dressedEquips: DressedEquips;
   game?: Game;
   KBWSIns?: KBWS; // KB WS 实例
   msgList: ChatVO[];

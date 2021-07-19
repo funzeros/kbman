@@ -7,10 +7,12 @@ export type Getters = {
   game(state: RootState): Game | undefined;
   userInfo(state: RootState): UserInfoVO | undefined;
   KBWSIns(state: RootState): KBWS | undefined;
+  dressedEquips(state: RootState): DressedEquips;
 };
 
 export const getters: GetterTree<RootState, RootState> & Getters = {
   game: state => state.user.game,
   userInfo: state => state.user.userInfo,
-  KBWSIns: state => state.user.KBWSIns
+  KBWSIns: state => state.user.KBWSIns,
+  dressedEquips: state => state.user.dressedEquips
 };

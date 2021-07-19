@@ -5,16 +5,20 @@ const edgeAttrPool: PartKindAttr[] = [
     "锋",
     "box-shadow: 0 0 6px 2px #fff, 0 0 1px 0 #000 inset;",
     {
-      atk: {
-        value: 10,
-        isPercent: true,
-        isFixed: true
-      },
-      str: {
-        value: -10,
-        isPercent: true,
-        isFixed: true
-      }
+      atk: [
+        {
+          value: 10,
+          isPercent: true,
+          isFixed: true
+        }
+      ],
+      str: [
+        {
+          value: -10,
+          isPercent: true,
+          isFixed: true
+        }
+      ]
     }
   ]
 ];

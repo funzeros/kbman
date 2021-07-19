@@ -1,3 +1,10 @@
+import backBoardPool from "./lorica/backBoard";
+import frontBoardPool from "./lorica/frontBoard";
+import heartPool from "./lorica/heart";
+import emblemPool from "./shield/emblem";
+import facePool from "./shield/face";
+import holdPool from "./shield/hold";
+import sharpPool from "./shield/sharp";
 import bodyPool from "./weapon/body";
 import casePool from "./weapon/case";
 import edgePool from "./weapon/edge";
@@ -78,17 +85,68 @@ export const EquipTypeOption: EquipOptVO<BaseProps> = {
   shield: {
     type: "shield",
     baseProp: ["def", "vit"],
-    parts: [],
-    buildName() {
-      return "";
+    parts: [
+      {
+        label: "sharp",
+        name: "盾角",
+        odds: 0.2,
+        partPool: sharpPool
+      },
+      {
+        label: "face",
+        name: "盾面",
+        odds: 1,
+        partPool: facePool
+      },
+      {
+        label: "emblem",
+        name: "盾纹",
+        odds: 1,
+        partPool: emblemPool
+      },
+      {
+        label: "hold",
+        name: "挽手",
+        odds: 1,
+        partPool: holdPool
+      }
+    ],
+    buildName(opt) {
+      const { sharp, face, emblem, hold } = opt;
+      const nameArr: string[] = [];
+      sharp && nameArr.push(sharp);
+      nameArr.push(`${emblem}${face}盾${hold}${emblem}`);
+      return nameArr.join("·");
     }
   },
   lorica: {
     type: "lorica",
-    baseProp: ["def", "vit"],
-    parts: [],
-    buildName() {
-      return "";
+    baseProp: ["hp", "vit"],
+    parts: [
+      {
+        label: "frontBoard",
+        name: "胸板",
+        odds: 1,
+        partPool: frontBoardPool
+      },
+      {
+        label: "heart",
+        name: "护心镜",
+        odds: 1,
+        partPool: heartPool
+      },
+      {
+        label: "backBoard",
+        name: "背板",
+        odds: 1,
+        partPool: backBoardPool
+      }
+    ],
+    buildName(opt) {
+      const { frontBoard, heart, backBoard } = opt;
+      const nameArr: string[] = [];
+      nameArr.push(`${heart}${frontBoard}衣${backBoard}${heart}`);
+      return nameArr.join("·");
     }
   }
 };

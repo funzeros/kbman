@@ -47,16 +47,18 @@ export class Equip extends BasePropertyDTO implements EquipVO {
   ) {
     Object.keys(singlePartProperty).forEach(k => {
       const key = k as BaseProps;
-      const value = singlePartProperty[key] as PartProperty;
+      const valueList = singlePartProperty[key] as PartProperty[];
       if (!allPartProperty[key])
         allPartProperty[key] = {
           value: 0,
           percentValue: 0
         };
       const property = allPartProperty[key] as AllPartProperty;
-      property[value.isPercent ? "percentValue" : "value"] += Math.floor(
-        value.value * (value.isFixed ? 1 : this.level)
-      );
+      valueList.forEach(value => {
+        property[value.isPercent ? "percentValue" : "value"] += Math.floor(
+          value.value * (value.isFixed ? 1 : this.level)
+        );
+      });
     });
   }
   private setPartProperty(allPartProperty: AllPartPropertyPool) {

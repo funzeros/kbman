@@ -5,10 +5,12 @@ const scabbardAttrPool: PartKindAttr[] = [
     "鞘",
     "height: 80%;width: 16%;border-top-right-radius: 50%;border-top-left-radius: 50%;background-image: linear-gradient(15deg, #13547a 0%, #80d0c7 100%);border: 1px solid #000;",
     {
-      str: {
-        value: 0.3,
-        isPercent: true
-      }
+      str: [
+        {
+          value: 0.3,
+          isPercent: true
+        }
+      ]
     }
   ]
 ];

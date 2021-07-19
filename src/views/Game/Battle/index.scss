@@ -1,56 +1,41 @@
-@keyframes be-dark {
-  from {
-    background-color: rgba($color: #000000, $alpha: 0);
-  }
-  to {
-    background-color: rgba($color: #000000, $alpha: 0.5);
-  }
+.mask-model {
+  pointer-events: none;
+  --cb: cubic-bezier(0.17, 0.67, 0.83, 1.64);
+  --dur: 200ms;
+  --height: 300px;
+  will-change: background-color;
+  background-color: rgba($color: #000000, $alpha: 0);
+  transition: background-color var(--dur) var(--cb);
 }
-@keyframes to-bottom {
-  to {
-    transform: translateY(0);
-  }
-}
-@keyframes to-top {
-  to {
-    transform: translateY(0);
-  }
-}
-
 .top,
 .bottom {
-  --height: 300px;
+  will-change: transform;
+  transition: transform var(--dur) var(--cb);
+  left: 0;
+  position: absolute;
+  width: 100%;
 }
 .top {
-  width: 100%;
   height: calc(100vh - var(--height) - 50px);
   background-color: #fff;
-  position: absolute;
   top: 10px;
-  left: 0;
   transform: translateY(calc(var(--height) + 50px - 100vh));
 }
 .bottom {
-  width: 100%;
   height: var(--height);
-  position: absolute;
   bottom: 10px;
-  left: 0;
   transform: translateY(calc(var(--height)));
 }
 
-.mask-model {
-  --cb: cubic-bezier(0.17, 0.67, 0.83, 1.64);
-  --dur: 200ms;
-  pointer-events: none;
-  &.dialogShow {
+.dialogShow {
+  &.mask-model {
     pointer-events: visible;
-    animation: be-dark var(--dur) ease-in forwards;
-    .top {
-      animation: to-bottom var(--dur) var(--cb) forwards;
-    }
-    .bottom {
-      animation: to-top var(--dur) var(--cb) forwards;
-    }
+    background-color: rgba($color: #000000, $alpha: 0.5);
+  }
+  .top {
+    transform: translateY(0);
+  }
+  .bottom {
+    transform: translateY(0);
   }
 }

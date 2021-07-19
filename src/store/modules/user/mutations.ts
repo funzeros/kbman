@@ -18,6 +18,7 @@ export type Mutations<S = UserState> = {
   [MutationTypes.CLEAR_WS](state: S): void;
   [MutationTypes.PUSH_MSG](state: S, payload: ChatVO): void;
   [MutationTypes.CLEAR_MSG](state: S): void;
+  [MutationTypes.SET_EQUIP](state: S, payload: EquipVO): void;
 };
 
 export const mutations: MutationTree<UserState> & Mutations = {
@@ -57,5 +58,8 @@ export const mutations: MutationTree<UserState> & Mutations = {
   },
   [MutationTypes.CLEAR_MSG](state) {
     state.msgList.length = 0;
+  },
+  [MutationTypes.SET_EQUIP](state, payload) {
+    state.dressedEquips[payload.type] = payload;
   }
 };
