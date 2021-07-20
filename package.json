@@ -4,7 +4,7 @@
   "private": true,
   "scripts": {
     "dev": "vite",
-    "build": "vite build && esno ./build/script/postBuild.ts",
+    "build": "vite build && esno ./build/script/postBuild.ts && esno ./build/copy_static.js",
     "serve": "vite preview",
     "lint:prettier": "prettier --write \"src/**/*.{ts,js,json,tsx,css,less,scss,vue,html,md}\"",
     "lint:all": "prettier --write \"*.{ts,js,json,tsx,css,less,scss,vue,html,md}\"",
@@ -54,6 +54,7 @@
     "@vue/compiler-sfc": "^3.0.7",
     "@vue/eslint-config-prettier": "^6.0.0",
     "@vue/eslint-config-typescript": "^5.0.2",
+    "copy-dir": "^1.3.0",
     "dotenv": "^10.0.0",
     "eslint": "^7.24.0",
     "eslint-plugin-prettier": "^3.1.3",
