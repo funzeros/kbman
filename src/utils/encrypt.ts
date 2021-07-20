@@ -31,13 +31,3 @@ export const objEncodeToStr = (obj: GObj) =>
  */
 export const strDecodeToObj = (str: string) =>
   JSON.parse(decodeURIComponent(atob(str)));
-
-/**
- * 正版验证方法
- */
-
-export const wgaFn = (time: number) => {
-  const oldTime = ("" + time).substr(6, 6);
-  const newTime = ((+oldTime % 9845) + 127) * 1998;
-  return oldTime + "-" + newTime;
-};

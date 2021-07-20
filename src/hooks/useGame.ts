@@ -1,19 +1,26 @@
 import { Graphics, Text } from "pixi.js";
 import { mapBlockList } from "../const/map";
+import { toLowerCase } from "../utils/text";
 import Engin from "./useEngin";
 
 type Player = {
   role: Graphics;
   text: Text;
+  userInfo: UserInfoVO;
 };
 export default class Game extends Engin {
   private readonly effectiveKey = ["w", "a", "s", "d"];
-  private keyPool = new Map<string, boolean>();
+  public keyPool = new Map<string, boolean>();
   public speed = 1;
   public mPlayer: Player;
   public players = new Map<number, Player>();
   public user: UserInfoVO;
   private colorList = [0x22fe22, 0xffffff, 0x2222fe, 0xfefe22];
+  private eventPool: EventPool<EventPoolKeys> = {
+    keyDown: [],
+    keyUp: [],
+    key: []
+  };
   /**
    * constructor
    * @param el
@@ -22,15 +29,18 @@ export default class Game extends Engin {
   constructor(el: HTMLElement, user: UserInfoVO) {
     super(el);
     this.user = user;
-    this.roleP.x = user.x;
-    this.roleP.y = user.y;
+    this.roleP.x = user.roleP.x;
+    this.roleP.y = user.roleP.y;
     // 添加舞台和容器
     this.stageAdd(this.mapContainer);
     this.stageAdd(this.roleContainer);
     el.appendChild(this.app.view);
     // 初始化添加
     this.renderMap(mapBlockList);
-    this.mPlayer = this.role(this.user.name, this.roleP);
+    this.mPlayer = {
+      ...this.role(this.user.name, this.roleP),
+      userInfo: this.user
+    };
     this.app.ticker.autoStart = true;
     this.app.ticker.minFPS = 30;
     this.app.ticker.maxFPS = 60;
@@ -44,6 +54,7 @@ export default class Game extends Engin {
   private update = (dt: number) => {
     const oldXY = { x: this.roleP.x, y: this.roleP.y };
     this.move(dt);
+    this.refreshOthers(dt);
     if (this.roleP.x === oldXY.x && this.roleP.y === oldXY.y) return;
     this.refreshRole();
     this.refreshCamera();
@@ -60,6 +71,14 @@ export default class Game extends Engin {
     if (this.keyPool.has("s")) this.roleP.y += this.speed * dt;
     if (this.keyPool.has("d")) this.roleP.x += this.speed * dt;
   }
+  private moveOthers(dt: number, player: Player) {
+    const { userInfo } = player;
+    const { keyPools } = userInfo;
+    if (keyPools.includes("w")) userInfo.roleP.y -= this.speed * dt;
+    if (keyPools.includes("a")) userInfo.roleP.x -= this.speed * dt;
+    if (keyPools.includes("s")) userInfo.roleP.y += this.speed * dt;
+    if (keyPools.includes("d")) userInfo.roleP.x += this.speed * dt;
+  }
   /**
    * 键盘控制
    * @param e
@@ -67,13 +86,24 @@ export default class Game extends Engin {
    */
   private controlKD = (e: KeyboardEvent) => {
     if (window.isInput) return;
-    if (!this.effectiveKey.includes(e.key)) return;
-    this.keyPool.set(e.key, true);
+    const key = toLowerCase(e.key);
+    if (!this.effectiveKey.includes(key)) return;
+    if (this.keyPool.has(key)) return;
+    this.keyPool.set(key, true);
+    this.executeEvent("key", e);
   };
   private controlKU = (e: KeyboardEvent) => {
-    if (!this.effectiveKey.includes(e.key)) return;
-    this.keyPool.delete(e.key);
+    const key = toLowerCase(e.key);
+    if (!this.effectiveKey.includes(key)) return;
+    if (!this.keyPool.has(key)) return;
+    this.keyPool.delete(key);
+    this.executeEvent("key", e);
   };
+  private executeEvent(eventName: EventPoolKeys, e: Event) {
+    this.eventPool[eventName].forEach(m => {
+      m(this, e);
+    });
+  }
   public registeredControl() {
     document.body.addEventListener("keydown", this.controlKD);
     document.body.addEventListener("keyup", this.controlKU);
@@ -82,7 +112,21 @@ export default class Game extends Engin {
     document.body.removeEventListener("keydown", this.controlKD);
     document.body.removeEventListener("keyup", this.controlKU);
   }
-
+  public addEvent(eventName: EventPoolKeys, func: Fn) {
+    this.eventPool[eventName].push(func);
+  }
+  public removeEvent(eventName: EventPoolKeys, func: Fn) {
+    const index = this.eventPool[eventName].findIndex(
+      fn => fn === func
+    ) as number;
+    if (index > -1) this.eventPool[eventName].splice(index, 1);
+  }
+  public clearEvent() {
+    Object.keys(this.eventPool).forEach(k => {
+      const key = k as EventPoolKeys;
+      this.eventPool[key].length = 0;
+    });
+  }
   /**
    * 创建角色
    */
@@ -115,6 +159,20 @@ export default class Game extends Engin {
     player.text.x = this.calcXY(xy.x) + 5;
     player.text.y = this.calcXY(xy.y) - 10;
   }
+  public refreshOthers(dt: number) {
+    this.players.forEach(m => {
+      if (m.userInfo.keyPools.length) {
+        const oldXY = { x: m.userInfo.roleP.x, y: m.userInfo.roleP.y };
+        this.moveOthers(dt, m);
+        this.refreshOtherRole(m, {
+          x: m.userInfo.roleP.x,
+          y: m.userInfo.roleP.y
+        });
+        if (Game.arrayBoxesIntersect(this.mapContainer.children, m.role))
+          m.userInfo.roleP = oldXY;
+      }
+    });
+  }
   public addTickEvent(cb: Fn) {
     this.app.ticker.add(() => cb(this));
   }
@@ -127,6 +185,11 @@ export default class Game extends Engin {
   public startTicker() {
     this.app.ticker.start();
   }
+  public destroy() {
+    this.clearTicker();
+    this.cancelledControl();
+    this.clearEvent();
+  }
   public updatePlayers(players: UserInfoVO[]) {
     const ids: number[] = [];
     players.forEach(m => {
@@ -135,12 +198,15 @@ export default class Game extends Engin {
       if (m.id === this.user.id) return;
       // 新玩家 插入
       if (!this.players.has(m.id)) {
-        const oPlayer = this.role(m.name, { x: m.x, y: m.y }, 1);
+        const oPlayer = {
+          ...this.role(m.name, { x: m.roleP.x, y: m.roleP.y }, 1),
+          userInfo: m
+        };
         this.players.set(m.id, oPlayer);
       }
       // 更新玩家位置
       const player = this.players.get(m.id) as Player;
-      this.refreshOtherRole(player, { x: m.x, y: m.y });
+      this.refreshOtherRole(player, { x: m.roleP.x, y: m.roleP.y });
     });
     this.players.forEach((v, k) => {
       if (ids.includes(k)) return;
@@ -149,5 +215,21 @@ export default class Game extends Engin {
       this.roleDel(text);
       this.players.delete(k);
     });
+  }
+  public exePlayerDirective(data: UserInfoVO) {
+    if (this.players.has(data.id)) {
+      // 存在就修改状态
+      const player = this.players.get(data.id) as Player;
+      Object.assign(player.userInfo, data);
+      this.players.set(data.id, player);
+      this.refreshOtherRole(player, { x: data.roleP.x, y: data.roleP.y });
+    } else {
+      // 如果不存在则新增玩家
+      const oPlayer = {
+        ...this.role(data.name, { x: data.roleP.x, y: data.roleP.y }, 1),
+        userInfo: data
+      };
+      this.players.set(data.id, oPlayer);
+    }
   }
 }

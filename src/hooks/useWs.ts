@@ -23,7 +23,8 @@ const wsFunc: Partial<KBWSTypes> = {
       const store = useStore();
       store.commit(MutationTypes.PUSH_MSG, res.data);
     }
-  ]
+  ],
+  syncDirective: []
 };
 export class KBWS {
   user: UserInfoDTO;

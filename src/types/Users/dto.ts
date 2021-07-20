@@ -15,8 +15,8 @@ export class UserInfoDTO implements UserInfoVO {
   chip = 0; // 碎片
   exp = 0; // 经验
   medal = 0; // 奖章
-  x = 0;
-  y = 0;
+  roleP = { x: 0, y: 0 };
+  keyPools = [];
 }
 
 export class BasePropertyDTO implements Partial<BasePropertyVO> {

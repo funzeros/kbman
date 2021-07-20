@@ -1,7 +1,7 @@
 import { Dictionary } from "lodash";
 
 export const requestTimeout = 30000;
-export const requestBaseURL = "/api";
+export const requestBaseURL = (import.meta.env.VITE_BASEURL as string) + "api";
 
 export const noAuthMeta = {
   keepAlive: false,

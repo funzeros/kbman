@@ -3,7 +3,6 @@ import qs from "qs";
 import { useStore } from "/@/store";
 import { requestTimeout, requestBaseURL } from "./config";
 import { ErrorCodeKey, processResponseData } from "./utils";
-import { wgaFn } from "../utils/encrypt";
 
 const request = axios.create({
   timeout: requestTimeout,
@@ -22,8 +21,6 @@ request.interceptors.request.use(
     if (accessToken && !isToken) {
       config.headers["Authorization"] = "Bearer " + accessToken; // token
     }
-    const time = Date.now();
-    config.headers["WGA"] = wgaFn(time);
     if (config.method === "get") {
       config.paramsSerializer = function (params) {
         return qs.stringify(params, { arrayFormat: "brackets" });

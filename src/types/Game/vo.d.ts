@@ -1,3 +1,6 @@
+/**
+ * equip
+ */
 enum equipTypes {
   weapon,
   shield,
@@ -68,4 +71,12 @@ interface UseEquipVO {
 
 type DressedEquips = {
   [K in EquipType]?: EquipVO;
+};
+
+/**
+ * game
+ */
+type EventPoolKeys = "keyDown" | "keyUp" | "key";
+type EventPool<T> = {
+  [K in T]: Fn[];
 };

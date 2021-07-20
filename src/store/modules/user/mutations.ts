@@ -41,7 +41,7 @@ export const mutations: MutationTree<UserState> & Mutations = {
     state.game = payload;
   },
   [MutationTypes.CLEAR_GAME](state) {
-    state.game?.cancelledControl();
+    state.game?.destroy();
     state.game = undefined;
   },
   [MutationTypes.SET_WS](state, payload) {

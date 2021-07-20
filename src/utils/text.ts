@@ -17,3 +17,7 @@ export function welcome() {
   const index = Math.floor(Math.random() * arr.length);
   return arr[index];
 }
+
+export function toLowerCase(str: string) {
+  return str.toLowerCase();
+}

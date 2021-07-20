@@ -1,4 +1,5 @@
 import { Ticker } from "pixi.js";
+import { toLowerCase } from "../utils/text";
 import Engin from "./useEngin";
 
 export default class Edit extends Engin {
@@ -48,12 +49,14 @@ export default class Edit extends Engin {
    * @returns
    */
   private controlKD = (e: KeyboardEvent) => {
-    if (!this.effectiveKey.includes(e.key)) return;
-    this.keyPool.set(e.key, true);
+    const key = toLowerCase(e.key);
+    if (!this.effectiveKey.includes(key)) return;
+    this.keyPool.set(key, true);
   };
   private controlKU = (e: KeyboardEvent) => {
-    if (!this.effectiveKey.includes(e.key)) return;
-    this.keyPool.delete(e.key);
+    const key = toLowerCase(e.key);
+    if (!this.effectiveKey.includes(key)) return;
+    this.keyPool.delete(key);
   };
   public registeredControl() {
     document.body.addEventListener("keydown", this.controlKD);

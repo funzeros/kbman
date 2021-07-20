@@ -6,8 +6,8 @@ interface UserInfoVO {
   chip: number;
   exp: number;
   medal: number;
-  x: number;
-  y: number;
+  roleP: XY;
+  keyPools: string[];
 }
 
 interface BasePropertyVO {

@@ -67,13 +67,13 @@ export default ({ mode }: ConfigEnv): UserConfig => {
     server: {
       port: +env.VITE_PORT,
       // Load proxy configuration from .env
-      proxy: {
-        "/api": {
-          target: env.VITE_BASEURL,
-          changeOrigin: true,
-          ws: true
-        }
-      },
+      // proxy: {
+      //   "/api": {
+      //     target: env.VITE_BASEURL,
+      //     changeOrigin: true,
+      //     ws: true
+      //   }
+      // },
       hmr: {
         overlay: true
       }
