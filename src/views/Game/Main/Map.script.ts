@@ -14,6 +14,9 @@ export default defineComponent({
     const syncDirectiveFn: KBFn = (ws, res) => {
       store.getters.game.exePlayerDirective(res.data);
     };
+    const offlineFn: KBFn = (ws, res) => {
+      store.getters.game.deletePlayer(res.sourceId);
+    };
     const WSIns = store.getters.KBWSIns as KBWS;
     onMounted(() => {
       const game = new Game(mapWrapRef.value, store.getters.userInfo);
@@ -22,6 +25,7 @@ export default defineComponent({
       if (!WSIns) return;
       WSIns.on("syncUsers", sysncUsersFn);
       WSIns.on("syncDirective", syncDirectiveFn);
+      WSIns.on("offline", offlineFn);
       game.addEvent("key", (game: Game) => {
         WSIns.send({
           type: "syncDirective",
@@ -42,6 +46,7 @@ export default defineComponent({
       if (!WSIns) return;
       WSIns.remove("syncUsers", sysncUsersFn);
       WSIns.remove("syncUsers", syncDirectiveFn);
+      WSIns.remove("offline", offlineFn);
     });
     return {
       mapWrapRef

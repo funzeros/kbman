@@ -35,6 +35,7 @@ export const actions: ActionTree<UserState, RootState> & Actions = {
       return false;
     } catch (error) {
       console.error(new Error(error));
+      commit(MutationTypes.CLEAR_USERINFO);
       return false;
     }
   },

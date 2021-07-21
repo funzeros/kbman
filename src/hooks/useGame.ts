@@ -210,12 +210,24 @@ export default class Game extends Engin {
     });
     this.players.forEach((v, k) => {
       if (ids.includes(k)) return;
-      const { role, text } = this.players.get(k) as Player;
-      this.roleDel(role);
-      this.roleDel(text);
-      this.players.delete(k);
+      this.deletePlayer(k);
     });
   }
+  /**
+   * 删除玩家
+   * @param id
+   */
+  public deletePlayer(id: number) {
+    if (!this.players.has(id)) return;
+    const { role, text } = this.players.get(id) as Player;
+    this.roleDel(role);
+    this.roleDel(text);
+    this.players.delete(id);
+  }
+  /**
+   * 执行玩家指令
+   * @param data
+   */
   public exePlayerDirective(data: UserInfoVO) {
     if (this.players.has(data.id)) {
       // 存在就修改状态

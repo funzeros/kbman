@@ -1,7 +1,7 @@
 <template>
   <teleport to="body">
     <div class="mask-model flex-c-c" :class="{ dialogShow }">
-      <div class="top" @click="endBattle"></div>
+      <div class="top" @click="close()"></div>
       <div class="bottom">
         <Keyboard />
       </div>

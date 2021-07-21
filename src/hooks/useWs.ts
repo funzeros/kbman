@@ -24,7 +24,8 @@ const wsFunc: Partial<KBWSTypes> = {
       store.commit(MutationTypes.PUSH_MSG, res.data);
     }
   ],
-  syncDirective: []
+  syncDirective: [],
+  offline: []
 };
 export class KBWS {
   user: UserInfoDTO;
@@ -51,11 +52,7 @@ export class KBWS {
     ws.onmessage = e => {
       const res = JSON.parse(e.data) as KBWSVO;
       const fnList = wsFunc[res.type];
-      if (fnList && fnList.length) {
-        fnList.forEach(fn => fn(ws, res));
-      } else {
-        gMessage("收到一条无法执行的请求", "error");
-      }
+      if (fnList && fnList.length) fnList.forEach(fn => fn(ws, res));
     };
     ws.onclose = () => {
       const store = useStore();

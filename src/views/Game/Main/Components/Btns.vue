@@ -18,7 +18,8 @@ import { useStore } from "/@/store";
 import { MutationTypes } from "/@/store/modules/user/mutation-types";
 export default defineComponent({
   setup() {
-    const startBattle = inject("startBattle") as Fn;
+    const exeReverse = inject("exeReverse") as Fn;
+
     const { build } = useEquip();
     const store = useStore();
     const btnList = computed(() => {
@@ -32,6 +33,7 @@ export default defineComponent({
             const weapon = build.weapon(1);
             store.commit(MutationTypes.SET_EQUIP, weapon);
             console.log(weapon);
+            exeReverse("AttrPanelRef");
           }
         },
         {
@@ -39,7 +41,7 @@ export default defineComponent({
           name: "物品",
           icon: "icon-Treasure",
           func: () => {
-            //
+            exeReverse("BackPackRef");
           }
         },
         {
@@ -47,7 +49,7 @@ export default defineComponent({
           name: "战斗",
           icon: "icon-RPGGame",
           func: () => {
-            startBattle();
+            exeReverse("BattleRef");
           }
         }
       ];

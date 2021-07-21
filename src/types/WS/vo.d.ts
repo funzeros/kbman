@@ -8,6 +8,7 @@ interface KBWSTypes {
   syncUsers: KBFn[];
   chat: KBFn[];
   syncDirective: KBFn[];
+  offline: KBFn[];
   [key: string]: KBFn[];
 }
 type KBWSType = keyof KBWSTypes;

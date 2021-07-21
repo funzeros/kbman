@@ -6,10 +6,8 @@ export default defineComponent({
     Keyboard
   },
   setup() {
-    const endBattle = inject("endBattle") as Fn;
     class ModelData {
       dialogShow = false;
-      dialogHidden = false;
     }
     const modelData = reactive<ModelData>(new ModelData());
     const methods = {
@@ -19,7 +17,9 @@ export default defineComponent({
       close() {
         modelData.dialogShow = false;
       },
-      endBattle
+      reverse() {
+        modelData.dialogShow = !modelData.dialogShow;
+      }
     };
     return {
       ...toRefs(modelData),
