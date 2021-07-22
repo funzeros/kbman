@@ -41,7 +41,6 @@ export default defineComponent({
     }
   },
   setup(props) {
-    console.log(props.value);
     const partData = computed(() => {
       return props.value.partData;
     });
@@ -51,10 +50,8 @@ export default defineComponent({
 </script>
 <style lang="scss" scoped>
 .weapon-box {
-  height: 100px;
-  width: 100px;
-  box-shadow: 0 0 0 2px #fff;
-  background-color: #000;
+  height: 100%;
+  width: 100%;
   position: relative;
 }
 .assem {

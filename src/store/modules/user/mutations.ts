@@ -4,7 +4,7 @@ import storage from "store";
 import { MutationTree } from "vuex";
 import { UserInfoDTO } from "/@/types/Users/dto";
 import { objEncodeToStr, strDecodeToObj } from "/@/utils/encrypt";
-import Game from "/@/hooks/useGame";
+import { Game } from "/@/hooks/useGame";
 import { KBWS } from "/@/hooks/useWs";
 import { mergeProperties } from "/@/utils/common";
 

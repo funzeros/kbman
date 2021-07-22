@@ -57,6 +57,7 @@ type EquipOptVO<T> = {
   [K in EquipType]: EquipTypeOptVO<T>;
 };
 interface EquipVO extends Partial<BasePropertyVO> {
+  level: number;
   type: EquipType;
   name: string;
   partData: PartInsData;
@@ -72,7 +73,9 @@ interface UseEquipVO {
 type DressedEquips = {
   [K in EquipType]?: EquipVO;
 };
-
+type EquipComponentMap = {
+  [K in EquipType]: string;
+};
 /**
  * game
  */

@@ -11,7 +11,6 @@ interface UserInfoVO {
 }
 
 interface BasePropertyVO {
-  level: number; // 等级
   str: number; // 力量
   vit: number; // 体质
   dex: number; // 敏捷

@@ -27,19 +27,22 @@ export default defineComponent({
         {
           prop: "character",
           name: "角色",
-          icon: "icon-Character",
+          icon: "icon-kbmanCharacter",
           func: () => {
             //
             const weapon = build.weapon(1);
+            const shield = build.shield(1);
+            const lorica = build.lorica(1);
             store.commit(MutationTypes.SET_EQUIP, weapon);
-            console.log(weapon);
+            store.commit(MutationTypes.SET_EQUIP, shield);
+            store.commit(MutationTypes.SET_EQUIP, lorica);
             exeReverse("AttrPanelRef");
           }
         },
         {
           prop: "backpack",
           name: "物品",
-          icon: "icon-Treasure",
+          icon: "icon-kbmanTreasure",
           func: () => {
             exeReverse("BackPackRef");
           }
@@ -47,7 +50,7 @@ export default defineComponent({
         {
           prop: "battle",
           name: "战斗",
-          icon: "icon-RPGGame",
+          icon: "icon-kbmanRPGGame",
           func: () => {
             exeReverse("BattleRef");
           }

@@ -20,7 +20,6 @@ export class UserInfoDTO implements UserInfoVO {
 }
 
 export class BasePropertyDTO implements Partial<BasePropertyVO> {
-  public level = 1; // 等级
   public str?: number; // 力量
   public vit?: number; // 体质
   public dex?: number; // 敏捷
@@ -44,4 +43,36 @@ export class BasePropertyDTO implements Partial<BasePropertyVO> {
   public lre?: number; // 光抗
   public den?: number; // 暗强
   public dre?: number; // 暗抗
+  constructor(isFill = false) {
+    if (!isFill) return;
+    const propStrList = [
+      "str",
+      "vit",
+      "dex",
+      "hp",
+      "atk",
+      "def",
+      "as",
+      "dod",
+      "hit",
+      "cri",
+      "crd",
+      "add",
+      "fin",
+      "red",
+      "ign",
+      "fen",
+      "fre",
+      "ien",
+      "ire",
+      "len",
+      "lre",
+      "den",
+      "dre"
+    ];
+    propStrList.forEach(m => {
+      this[m as keyof BasePropertyVO] = 0;
+    });
+    return;
+  }
 }

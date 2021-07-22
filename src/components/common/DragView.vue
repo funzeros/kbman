@@ -16,6 +16,7 @@
           <span> {{ title }} </span>
           <i class="icon-btn el-icon-close" @click.stop="close()"></i>
         </div>
+        <slot></slot>
       </div>
     </div>
   </teleport>

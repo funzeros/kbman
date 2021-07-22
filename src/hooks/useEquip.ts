@@ -6,6 +6,7 @@ import { GMath } from "../utils/custom";
  * Equip
  */
 export class Equip extends BasePropertyDTO implements EquipVO {
+  public level: number;
   public type: EquipType;
   public name = "";
   public partData: PartInsData = {};
@@ -75,6 +76,16 @@ export class Equip extends BasePropertyDTO implements EquipVO {
       if (this.quality >= +now) return qualityMap[now];
       return pre;
     }, "");
+  }
+  static statisticsTotalEquip(equips: DressedEquips) {
+    return Object.values(equips).reduce((pre, now) => {
+      const p = pre as GObj;
+      const n = now as GObj;
+      Object.keys(pre).forEach(k => {
+        if (k in n && k in p) p[k] += n[k];
+      });
+      return p;
+    }, new BasePropertyDTO(true)) as BasePropertyVO;
   }
 }
 

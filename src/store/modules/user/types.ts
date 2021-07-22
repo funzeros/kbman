@@ -1,4 +1,4 @@
-import Game from "/@/hooks/useGame";
+import { Game } from "/@/hooks/useGame";
 import { KBWS } from "/@/hooks/useWs";
 import { UserInfoDTO } from "/@/types/Users/dto";
 

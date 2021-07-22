@@ -8,7 +8,7 @@ type Player = {
   text: Text;
   userInfo: UserInfoVO;
 };
-export default class Game extends Engin {
+export class Game extends Engin {
   private readonly effectiveKey = ["w", "a", "s", "d"];
   public keyPool = new Map<string, boolean>();
   public speed = 1;
@@ -245,3 +245,17 @@ export default class Game extends Engin {
     }
   }
 }
+const useGame = (baseline = 250) => {
+  return {
+    /**
+     *
+     * @param f 加成来源
+     * @param t 加成对象
+     * @returns
+     */
+    calcBonus(f: number, t: number) {
+      return Math.round((1 + f / baseline) * t);
+    }
+  };
+};
+export default useGame;

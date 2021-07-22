@@ -1,5 +1,5 @@
 import { defineComponent, onMounted, onUnmounted, ref } from "vue";
-import Game from "/@/hooks/useGame";
+import { Game } from "/@/hooks/useGame";
 import { KBWS } from "/@/hooks/useWs";
 import { useStore } from "/@/store";
 import { MutationTypes } from "/@/store/modules/user/mutation-types";
