@@ -3,7 +3,9 @@
     <div
       class="mask-model drag-view event-none"
       v-show="dialogShow"
-      @mousedown="zIndexMax($event, 'drag-view')"
+      hidefocus="true"
+      tabindex="0"
+      style="outline: none"
     >
       <div
         class="content"
@@ -137,5 +139,8 @@ export default defineComponent({
       transform: scale(0.95);
     }
   }
+}
+.drag-view:focus {
+  z-index: 4;
 }
 </style>
