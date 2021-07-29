@@ -14,6 +14,7 @@
   </div>
 </template>
 <script lang="ts">
+import { GMath } from "gems-tools";
 import {
   computed,
   defineComponent,
@@ -25,7 +26,6 @@ import {
 } from "vue";
 import { mainRoutePath } from "/@/const/path";
 import { useGRoute } from "/@/hooks/useRoute";
-import { GMath } from "/@/utils/custom";
 export default defineComponent({
   setup() {
     const { pushRouteFullpath } = useGRoute();

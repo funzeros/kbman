@@ -2615,6 +2615,11 @@ functional-red-black-tree@^1.0.1:
   resolved "https://repo.huaweicloud.com/repository/npm/functional-red-black-tree/-/functional-red-black-tree-1.0.1.tgz#1b0ab3bd553b2a0d6399d29c0e3ea0b252078327"
   integrity sha1-GwqzvVU7Kg1jmdKcDj6gslIHgyc=
 
+gems-tools@^0.0.2:
+  version "0.0.2"
+  resolved "https://registry.npmjs.org/gems-tools/-/gems-tools-0.0.2.tgz#ddfb442a4571f63db4cab82f063c65a930a3d874"
+  integrity sha512-evlcqwBjUF7707fehfIAAN+4He5mndswmMrUtwr6CBwef29oEbGyOzcBBrXinTPMLMkLDXg9pnVvDS45nvF18g==
+
 generic-names@^2.0.1:
   version "2.0.1"
   resolved "https://repo.huaweicloud.com/repository/npm/generic-names/-/generic-names-2.0.1.tgz#f8a378ead2ccaa7a34f0317b05554832ae41b872"

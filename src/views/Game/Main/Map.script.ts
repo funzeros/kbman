@@ -3,7 +3,7 @@ import { Game } from "/@/hooks/useGame";
 import { KBWS } from "/@/hooks/useWs";
 import { useStore } from "/@/store";
 import { MutationTypes } from "/@/store/modules/user/mutation-types";
-import { GMap } from "/@/utils/custom";
+import { GMap } from "gems-tools";
 export default defineComponent({
   setup() {
     const store = useStore();

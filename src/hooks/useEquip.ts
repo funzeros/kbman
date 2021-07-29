@@ -1,6 +1,6 @@
 import { EquipTypeOption, qualityMap } from "../const/equip";
 import { BasePropertyDTO } from "../types/Users/dto";
-import { GMath } from "../utils/custom";
+import { GMath } from "gems-tools";
 
 /**
  * Equip
