@@ -20,7 +20,7 @@
     "dayjs": "^1.10.3",
     "echarts": "^5.1.1",
     "element-plus": "^1.0.2-beta.35",
-    "gems-tools": "^0.0.2",
+    "gems-tools": "^0.0.12",
     "lodash": "^4.17.20",
     "md5": "^2.3.0",
     "nprogress": "^0.2.0",
